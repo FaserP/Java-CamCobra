@@ -1,0 +1,44 @@
+#include "camera.idl"
+
+module LocalMonitoringStation {
+  
+  struct Log {
+    string sensor;
+    long long timestamp;
+    SensorCamera::Warning level;
+  };
+  
+  struct Alert {
+    string sensor;
+    long long timestamp;
+    SensorCamera::Warning level;
+  };
+
+  typedef sequence<string> Zones;
+  typedef sequence<SensorCamera::Sensor> Sensors;
+  typedef sequence<Log> Logs;	
+  typedef sequence<Alert> Alerts;	
+
+  interface SensorEvents {
+    readonly attribute string lmsname;
+    readonly attribute SensorCamera::Sensor sensor;
+
+    void record_log(in Log aLog);
+    void record_alarm(in Alert anAlert);
+    Logs get_logs();
+    Alerts get_alerts();
+    Logs get_timelogs(in long long timestamp);
+    Alerts get_timealerts(in long long timestamp);
+  };
+
+  interface LMS {
+    readonly attribute string name;
+    void add_camera(in SensorCamera::Sensor aSensor, in string aZone);
+    void record_camera(in SensorCamera::Sensor aSensor, in string aZone, in SensorCamera::Image aReading); 
+    void raise_alerts(in SensorCamera::Sensor aSensor, in string aZone, in SensorCamera::Image aReading); 
+    Zones get_zones();
+    Sensors get_camera(in string zone);
+    Logs retrieve_logs(in string sensor, in string zone);
+    Alerts retrieve_alerts(in string sensor, in string zone);
+  };
+};

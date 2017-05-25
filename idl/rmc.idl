@@ -1,0 +1,47 @@
+#include "lms.idl"
+
+module RegionalMonitoringCentre {
+     
+  struct AlarmData {
+    LocalMonitoringStation::Alerts aReading;
+    string aConfirmingSensor;
+  };
+  
+  struct Warning {
+    string lms;
+    string zone;
+    string severity;
+    long long timestamp;
+  };
+  
+  struct User {
+    string name;
+    string email;
+    string password;
+  };
+  
+  typedef sequence<User> Users;
+  typedef sequence<string> Stations;
+  typedef sequence<string> Array0;
+  typedef sequence<Array0> Array1;
+  
+  typedef sequence<Warning> Warnings;
+  
+  interface RMC {
+
+    void add_station(in LocalMonitoringStation::LMS lms);
+    void remove_station(in LocalMonitoringStation::LMS station);
+    
+    LocalMonitoringStation::LMS get_station(in string station);
+    Stations get_stations();
+    
+    LocalMonitoringStation::Zones get_zones(in string station);
+    LocalMonitoringStation::Sensors get_sensors(in string station, in string zone);
+    
+    Array1 get_sensors_data(in string station, in string zone);
+
+    void register_user(in User aUser, in string lms, in string zone);    
+    Warnings get_all_warnings(in string lms, in string zone);
+  };
+  
+};

@@ -1,0 +1,28 @@
+module SensorCamera {
+
+	struct Warning {
+		double value;
+	};
+
+	struct Image {
+		long long time;
+		Warning warning;
+	};
+
+	interface Sensor {
+		enum Status { off, on };
+		attribute string cameraname;
+		readonly attribute Image current_image;
+		attribute Warning image_warning;
+		Image get_image();
+	    readonly attribute Status status;
+		void record_image(in double value);
+
+		string getstatus();
+	    void switch_on();
+		void switch_off();
+		void reset();
+		boolean camera_on();
+		boolean camera_off();
+	};
+};
