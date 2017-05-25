@@ -1,0 +1,25 @@
+# Clear the screen
+clear
+
+# Compile the Java IDL
+echo [*] Compiling the Java IDL
+idlj -fall -td ./java -i ./idl ./idl/camera.idl
+idlj -fall -td ./java -i ./idl ./idl/lms.idl
+idlj -fall -td ./java -i ./idl ./idl/rmc.idl
+
+# Compile all Java Code
+echo [*] Creating bin directory
+rm -rf ./bin
+mkdir ./bin
+
+# Compile Project 
+echo [*] Compiling the Java Implementation
+javac \
+  -sourcepath java/ \
+  -d bin/ \
+  java/*.java 
+
+
+
+
+echo [*] Build Completed.

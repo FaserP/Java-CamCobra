@@ -1,0 +1,30 @@
+﻿start orbd -ORBInitialPort 1050
+=============
+-cp ./bin CameraServer -ORBInitialPort 1050
+
+$ ./build
+```
+
+$ tnameserv -ORBInitialPort 1050
+```
+
+$ cd bin && java SensorServer -ORBInitialPort 1050
+```
+
+
+```
+$ cd bin && java SensorClient -ORBInitialPort 1050
+```
+````
+$ cd bin && java LMSServer -ORBInitialPort 1050
+````
+
+$ cd bin && java LMSClient -ORBInitialPort 1050
+```
+
+$ cd bin && java RMCServer -ORBInitialPort 1050
+```
+
+```
+$ cd bin && java RMCClient -ORBInitialPort 1050
+``
